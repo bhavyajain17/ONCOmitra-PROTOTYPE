@@ -1,0 +1,17 @@
+(() => {
+  const addHackathonShowcase = () => {
+    const overview = document.getElementById('panel-overview');
+    if (!overview || document.getElementById('hackathonStory')) return;
+    const story = document.createElement('section'); story.className = 'hackathon-story'; story.id = 'hackathonStory'; story.setAttribute('aria-label','ONCOmitra hackathon story');
+    story.innerHTML = '<div class="hackathon-eyebrow">Health-a-thon showcase</div><h3>Find risk early. Keep care moving. Protect every interaction.</h3><p>ONCOmitra turns a community screen into a visible care journey. The prototype gives each user one clear next action, while consent, role access and human review remain built into the workflow.</p><div class="hackathon-split"><div><div class="hackathon-flow"><article class="hackathon-step"><i>1</i><b>Field-ready intake</b><small>Structured symptoms, habits, photos and consent prompts work with intermittent connectivity.</small></article><article class="hackathon-step"><i>2</i><b>Closed-loop care</b><small>Risk guidance, referral status and follow-up queues expose the next handover before a patient is lost.</small></article><article class="hackathon-step"><i>3</i><b>Trusted intelligence</b><small>Role-specific training and guarded AI assistance support teams without replacing clinical judgement.</small></article></div><div class="impact-strip"><div class="impact-stat"><b>Patient-centred</b><small>Every screen ends with a documented next step.</small></div><div class="impact-stat"><b>Team-ready</b><small>ASHA, ANM, clinician and programme views align around one journey.</small></div><div class="impact-stat"><b>Pilot-ready</b><small>Prototype targets for usability, follow-up and safety can be measured from day one.</small></div></div></div><aside class="trust-panel"><h4>Trust by design</h4><ul><li>Consent and minimum-necessary data guide each intake.</li><li>Role access belongs to the application, not to an AI response.</li><li>Untrusted text, images and documents are treated as data, not instructions.</li><li>Clinical decisions and external actions require human review.</li></ul></aside></div><div class="hackathon-demo"><span>Judge demo path · move from community intake to care coordination in under two minutes</span><button class="btn btn-primary btn-sm" type="button" data-hdemo="field">1 · Start field intake</button><button class="btn btn-ghost btn-sm" type="button" data-hdemo="care">2 · Review care queue</button><button class="btn btn-ghost btn-sm" type="button" data-hdemo="trust">3 · Open trust & training</button></div>';
+    const hero = document.getElementById('commandHero'); (hero || overview.firstElementChild).after(story);
+    story.querySelectorAll('[data-hdemo]').forEach(button => button.addEventListener('click', () => {
+      const mode = button.dataset.hdemo;
+      if (mode === 'field') { activateTab('screening'); if (typeof demoFill === 'function') demoFill(); toast('Demo step 1 of 3: a consent-led community screening is ready to review.'); }
+      if (mode === 'care') { activateTab('clinical'); toast('Demo step 2 of 3: review the queue, ownership and the patient’s next action.'); }
+      if (mode === 'trust') { activateTab('training'); toast('Demo step 3 of 3: show role-specific training, privacy and human-review safeguards.'); }
+    }));
+  };
+  const boot = () => addHackathonShowcase();
+  document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', boot) : boot();
+})();
